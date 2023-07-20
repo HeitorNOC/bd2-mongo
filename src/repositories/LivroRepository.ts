@@ -1,5 +1,5 @@
 import { Collection, ObjectId } from "mongodb";
-import { Livro } from "../models/livro";
+import { CreateLivroInput, Livro } from "../models/livro";
 import { getDB } from "../database/mongo";
 
 export class LivroRepository {
@@ -21,5 +21,17 @@ export class LivroRepository {
     const collection = this.getDBLivros()
     const livro = await collection.findOne({ _id: id });
     return livro;
+  }
+
+  async createLivro(fields: CreateLivroInput): Promise<Livro | null> {
+    const { nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento } = fields
+    const collection = this.getDBLivros()
+    const livro = await collection.insertOne({
+        nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento,
+        _id: undefined
+    })
+    const insertedLivro = await collection.findOne({ _id: livro.insertedId })
+
+    return insertedLivro
   }
 }

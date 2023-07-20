@@ -1,7 +1,7 @@
 import { ObjectId } from "mongodb"
 
 interface EntityId {
-    _id: ObjectId
+    _id: ObjectId | undefined
 }
 
 export {
