@@ -8,12 +8,13 @@ export class LivroController {
         this.livroRepository = new LivroRepository()
     }
 
-    async getAllUsers(req: Request, res: Response): Promise<void> {
+    async getAllLivros(req: Request, res: Response): Promise<void> {
         try {
-            const users = await this.livroRepository.getAllLivros()
-            res.status(200).json({ users })
+            const livros = await this.livroRepository.getAllLivros()
+            res.status(200).json({ livros })
         } catch(error:any) {
             res.status(400).json({ error: error.message })
         }
     }
+
 }

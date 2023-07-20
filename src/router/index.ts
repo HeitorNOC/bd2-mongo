@@ -4,6 +4,6 @@ import { LivroController } from "../controllers/LivroController"
 const router = Router()
 const livroController = new LivroController()
 
-router.get("/livros", livroController.getAllUsers.bind(livroController))
+router.get("/livros", livroController.getAllLivros.bind(livroController))
 
 export { router }
