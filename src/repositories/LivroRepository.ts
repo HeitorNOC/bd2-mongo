@@ -34,4 +34,34 @@ export class LivroRepository {
 
     return insertedLivro
   }
+
+  async updateLivro(id: ObjectId, fields: CreateLivroInput): Promise<Livro | null> {
+    const { nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento } = fields
+    const collection = this.getDBLivros()
+    const livro = await collection.updateOne({ _id: id },  {
+      $set: {
+        nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento
+      }
+    })
+
+    if (!livro.upsertedId) {
+      return null
+    }
+    const updatedLivro = await collection.findOne({ _id: livro.upsertedId })
+
+    return updatedLivro
+  }
+
+  async deleteLivro(id: ObjectId): Promise<Livro | null> {
+    const collection = this.getDBLivros()
+    const livroToDelete = await collection.findOne({ _id: id })
+
+    if(!livroToDelete) {
+      throw new Error('Livro not found')
+    }
+
+    await collection.deleteOne({ _id: id })
+
+    return livroToDelete
+  }
 }

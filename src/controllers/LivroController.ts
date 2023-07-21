@@ -54,4 +54,40 @@ export class LivroController {
         }
     }
 
+    async updateLivro(req: Request, res: Response): Promise<void> {
+
+        const { id, nome, autores, img_url, short_description, categorias, ano_lancamento } =  req.body
+
+        const objId = new ObjectId(id)
+
+        const autoresObjectId: Array<ObjectId> = autores.map((autorId: string) => new ObjectId(autorId));
+
+        const categoriasObjectId: Array<ObjectId> = categorias.map((categoriaId: string) => new ObjectId(categoriaId)); 
+
+        const validate = validateFields({ nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento })
+
+        if (validate != "") {
+            throw new Error(`Field ${validate} is invalid`)
+        }
+
+        try {
+            const livro = await this.livroRepository.updateLivro(objId ,{ nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento })
+            res.status(201).json(livro)
+        } catch(error: any) {
+            res.status(400).json({ error: error.message })
+        }
+    }
+
+    async deleteLivro(req: Request, res: Response): Promise<void> {
+        const { id } = req.body
+
+        const objId = new ObjectId(id)
+
+        try {
+            const livro = await this.livroRepository.deleteLivro(objId)
+            res.status(204).json(livro)
+        } catch (error: any) {
+            res.status(400).json({ error: error.message })
+        }
+    }
 }
