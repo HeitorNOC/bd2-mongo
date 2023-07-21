@@ -1,6 +1,7 @@
+import { CreateCategoriaInput } from "../models/categoria";
 import { CreateLivroInput } from "../models/livro";
 
-export function validateFields(fields: CreateLivroInput) : string {
+export function validateFieldsLivro(fields: CreateLivroInput ) : string {
     switch (true) {
         case fields.nome == "" || fields.nome == null || fields.nome == undefined:
             return "nome";
@@ -16,5 +17,13 @@ export function validateFields(fields: CreateLivroInput) : string {
             return "categorias";
         default:
             return "";
+    }
+    
+}
+export function validateFieldsCategoria(fields: CreateCategoriaInput): string {
+    if (fields.nome == "" || fields.nome == null || fields.nome == undefined) {
+        return "nome"
+    } else {
+        return ""
     }
 }

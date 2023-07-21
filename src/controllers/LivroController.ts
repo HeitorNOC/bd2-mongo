@@ -1,7 +1,7 @@
 import { Request, Response } from "express"
 import { LivroRepository } from "../repositories/LivroRepository"
 import { ObjectId } from "mongodb"
-import { validateFields } from "../validation/emptyFieldsValidation"
+import { validateFieldsLivro } from "../validation/emptyFieldsValidation"
 
 export class LivroController {
     private livroRepository: LivroRepository
@@ -38,7 +38,7 @@ export class LivroController {
         const categoriasObjectId: Array<ObjectId> = categorias.map((categoriaId: string) => new ObjectId(categoriaId));
 
 
-        const validate = validateFields({ nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento })
+        const validate = validateFieldsLivro({ nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento })
 
         if (validate != "") {
             throw new Error(`Field ${validate} is invalid`)
@@ -64,7 +64,7 @@ export class LivroController {
 
         const categoriasObjectId: Array<ObjectId> = categorias.map((categoriaId: string) => new ObjectId(categoriaId)); 
 
-        const validate = validateFields({ nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento })
+        const validate = validateFieldsLivro({ nome, autoresObjectId, img_url, short_description, categoriasObjectId, ano_lancamento })
 
         if (validate != "") {
             throw new Error(`Field ${validate} is invalid`)
