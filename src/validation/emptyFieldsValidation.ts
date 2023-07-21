@@ -1,3 +1,4 @@
+import { CreateAutorInput } from "../models/autor";
 import { CreateCategoriaInput } from "../models/categoria";
 import { CreateLivroInput } from "../models/livro";
 
@@ -25,5 +26,18 @@ export function validateFieldsCategoria(fields: CreateCategoriaInput): string {
         return "nome"
     } else {
         return ""
+    }
+}
+
+export function validateFieldsAutor(fields: CreateAutorInput): string {
+    switch (true) {
+        case fields.nome == "" || fields.nome == null || fields.nome == undefined:
+            return "nome";
+        case fields.descricao == "" || fields.descricao == null || fields.descricao == undefined:
+            return "descricao";
+        case fields.nacionalidade == "" || fields.nacionalidade == null || fields.nacionalidade == undefined:
+            return "nacionalidade";
+       default:
+            return "";
     }
 }
