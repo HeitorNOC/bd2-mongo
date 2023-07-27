@@ -24,7 +24,7 @@ router.get("/categorias", categoriaController.getAllCategoria.bind(categoriaCont
 router.get("/categoria", categoriaController.getCategoriaById.bind(categoriaController))
 router.post("/categoria", categoriaController.createCategoria.bind(categoriaController))
 router.patch("/categoria", categoriaController.updateCategoria.bind(categoriaController))
-router.delete("/categoria", categoriaController.updateCategoria.bind(categoriaController))
+router.delete("/categoria", categoriaController.deleteCategoria.bind(categoriaController))
 
 
 export { router }

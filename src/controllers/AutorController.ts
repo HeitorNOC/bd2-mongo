@@ -67,7 +67,7 @@ export class AutorController {
 
         try {
             const autor = await this.AutorRepository.deleteAutor(objId)
-            res.status(204).json(autor)
+            res.status(202).json(autor)
         } catch (error: any) {
             res.status(400).json({ error: error.message })
         }

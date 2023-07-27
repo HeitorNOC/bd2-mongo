@@ -40,7 +40,7 @@ export class CategoriaController {
         }
 
         try {
-            const categoria = await this.CategoriaRepository.createCategoria({ nome})
+            const categoria = await this.CategoriaRepository.createCategoria({ nome })
             res.status(201).json(categoria)
         } catch(error: any) {
             res.status(400).json({ error: error.message })
@@ -64,13 +64,13 @@ export class CategoriaController {
         }
     }
 
-    async deleteLivro(req: Request, res: Response): Promise<void> {
+    async deleteCategoria(req: Request, res: Response): Promise<void> {
         const { id } = req.body
         const objId = new ObjectId(id)
 
         try {
-            const categoria = await this.CategoriaRepository.deleteLivro(objId)
-            res.status(204).json(categoria)
+            const categoria = await this.CategoriaRepository.deleteCategoria(objId)
+            res.status(202).json(categoria)
         } catch (error: any) {
             res.status(400).json({ error: error.message })
         }

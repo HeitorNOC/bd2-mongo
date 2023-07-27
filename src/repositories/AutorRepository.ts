@@ -6,7 +6,7 @@ export class AutorRepository {
 
     getDBAutor(): Collection<Autor> {
         const db = getDB();
-        const collection = db.collection<Autor>("categorias");
+        const collection = db.collection<Autor>("autores");
         
         return collection
         
@@ -34,6 +34,8 @@ export class AutorRepository {
           descricao,
           _id: undefined
       })
+
+      console.log(autor)
       const insertedAutor = await collection.findOne({ _id: autor.insertedId })
 
       return insertedAutor;
@@ -42,7 +44,7 @@ export class AutorRepository {
     async updateAutor(id: ObjectId, fields: CreateAutorInput): Promise<Autor | null> {
       const { nome, nacionalidade, descricao } = fields
       const collection = this.getDBAutor()
-      const autor = await collection.updateOne({ _id: id },  {
+      await collection.updateOne({ _id: id },  {
         $set: {
           nome,
           nacionalidade,
@@ -50,10 +52,7 @@ export class AutorRepository {
         }
       })
 
-      if (!autor.upsertedId) {
-        return null
-      }
-      const updatedAutor = await collection.findOne({ _id: autor.upsertedId })
+      const updatedAutor = await collection.findOne({ _id: id })
 
       return updatedAutor
     }

@@ -85,7 +85,7 @@ export class LivroController {
 
         try {
             const livro = await this.livroRepository.deleteLivro(objId)
-            res.status(204).json(livro)
+            res.status(202).json(livro)
         } catch (error: any) {
             res.status(400).json({ error: error.message })
         }

@@ -40,16 +40,13 @@ export class CategoriaRepository {
     async updateCategoria(id: ObjectId, fields: CreateCategoriaInput): Promise<Categoria | null> {
       const { nome } = fields
       const collection = this.getDBCategoria()
-      const categoria = await collection.updateOne({ _id: id },  {
+      await collection.updateOne({ _id: id },  {
         $set: {
           nome
         }
       })
 
-      if (!categoria.upsertedId) {
-        return null
-      }
-      const updatedCategoria = await collection.findOne({ _id: categoria.upsertedId })
+      const updatedCategoria = await collection.findOne({ _id: id })
 
       return updatedCategoria
     }
